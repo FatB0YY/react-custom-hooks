@@ -9,7 +9,7 @@ import { useRef, useLayoutEffect, useCallback } from "react";
  *
  * @template T Функция, которая принимает любые аргументы и возвращает любое значение.
  * @param fn Функция, которую нужно «застабилизировать» и при этом всегда использовать её последнюю версию.
- * @returns Стабильная ссылка на колбэк, при вызове которого используется актуальная реализация переданной функции `fn`.
+ * @returns {(...args: Parameters<T>) => ReturnType<T>} Стабильная ссылка на колбэк, вызывающая актуальную версию `fn`.
  */
 export function useEvent<T extends (...args: any[]) => any>(fn: T) {
   const fnRef = useRef(fn);
@@ -20,7 +20,6 @@ export function useEvent<T extends (...args: any[]) => any>(fn: T) {
 
   const eventCb = useCallback(
     (...args: Parameters<T>): ReturnType<T> => {
-      // return fnRef.current(...args);
       return fnRef.current.apply(null, args);
     },
     [fnRef]
