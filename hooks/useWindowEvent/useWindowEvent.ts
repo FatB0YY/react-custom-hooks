@@ -34,8 +34,6 @@ export function useWindowEvent(type: string, cb: (event: Event) => void) {
   const eventCb = useEvent(cb);
 
   useEffect(() => {
-    console.log("==============");
-
     window.addEventListener(type, eventCb);
 
     return () => window.removeEventListener(type, eventCb);
