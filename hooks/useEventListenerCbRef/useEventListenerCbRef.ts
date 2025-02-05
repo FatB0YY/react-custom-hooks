@@ -50,7 +50,7 @@ export function useEventListenerCbRef(
 
   // Callback ref, который будет привязан к DOM-элементу
   const cbRef = useCallback(
-    (element) => {
+    (element: HTMLElement | null) => {
       if (element) {
         element.addEventListener(type, eventCb);
         cleanupRef.current = () => {

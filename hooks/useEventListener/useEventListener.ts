@@ -48,7 +48,7 @@ export function useEventListener<T extends EventTarget, Type extends string>(
 
   useEffect(() => {
     if (!active) return;
-    const element = elementRef.current;
+    const element: HTMLElement | null = elementRef.current;
     if (!element) return;
 
     element.addEventListener(type, eventCb);
