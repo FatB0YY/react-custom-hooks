@@ -20,7 +20,7 @@ export function useEvent<T extends (...args: any[]) => any>(fn: T) {
 
   const eventCb = useCallback(
     (...args: Parameters<T>): ReturnType<T> => {
-      return fnRef.current.apply(null, args);
+      return fnRef.current(...args);
     },
     [fnRef]
   );
