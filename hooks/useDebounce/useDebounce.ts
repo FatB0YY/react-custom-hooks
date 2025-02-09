@@ -47,7 +47,7 @@ export function useDebounce<Fn extends (...args: any[]) => any>(
  * @returns {T & { cancel: () => void }} Дебаунсированная функция с дополнительным методом `cancel` для отмены запланированного вызова.
  */
 export function debounce<T extends (...args: any[]) => any>(fn: T, ms: number) {
-  let timeoutId: number | null = null;
+  let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
   /**
    * Обёртка, реализующая логику дебаунсинга.
@@ -61,7 +61,7 @@ export function debounce<T extends (...args: any[]) => any>(fn: T, ms: number) {
 
     timeoutId = setTimeout(() => {
       timeoutId = null;
-      fn.apply(null, args);
+      fn(...args);
     }, ms);
   }
 
