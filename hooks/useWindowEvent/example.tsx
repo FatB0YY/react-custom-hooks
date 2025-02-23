@@ -9,12 +9,12 @@ export function UseWindowEventExample() {
     diffY: 0,
   });
 
-  useWindowEvent("mousemove", (e) => {
+  useWindowEvent("mousemove", (event) => {
     setMousePosition({
-      x: e.clientX,
-      y: e.clientY,
-      diffX: e.clientX - x,
-      diffY: e.clientY - y,
+      x: event.clientX,
+      y: event.clientY,
+      diffX: event.clientX - x,
+      diffY: event.clientY - y,
     });
   });
 
