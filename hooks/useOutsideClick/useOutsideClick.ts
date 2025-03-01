@@ -30,6 +30,9 @@ export function useOutsideClick<T extends HTMLElement>(
     const handleClick = (event: MouseEvent) => {
       // Если ref не задан или элемент не найден, выходим
       if (!elementRef.current) return;
+      // Проверка необходима для того, чтобы гарантировать,
+      // что event.target действительно является узлом DOM (объектом, наследующим от Node).
+      if (!(event.target instanceof Node)) return;
 
       // Если клик произошёл вне элемента, вызываем callback
       if (!elementRef.current.contains(event.target as Node)) {
