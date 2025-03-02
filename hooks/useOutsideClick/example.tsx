@@ -1,22 +1,34 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, FC } from "react";
 import { useOutsideClick } from "./useOutsideClick";
 
-function Tooltip({ opened, onClose }) {
+interface TooltipProps {
+  opened: boolean;
+  triggerRef?: React.RefObject<HTMLElement>;
+  onClose: () => void;
+}
+
+const Tooltip: FC<TooltipProps> = ({ opened, onClose, triggerRef }) => {
   const tooltipRef = useRef(null);
 
-  useOutsideClick(tooltipRef, onClose, opened);
+  useOutsideClick({
+    elementRef: tooltipRef,
+    onOutsideClick: onClose,
+    attached: opened,
+    triggerRef: triggerRef,
+  });
 
   if (!opened) return null;
 
   return (
     <div ref={tooltipRef} className="tooltip">
-      <div>Some Text</div>
+      <button>Some Text</button>
     </div>
   );
-}
+};
 
 export default function App() {
   const [opened, setOpened] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const onClose = () => {
     setOpened(false);
@@ -25,12 +37,12 @@ export default function App() {
   return (
     <>
       <div className="tooltip-container">
-        <Tooltip opened={opened} onClose={onClose} />
+        <Tooltip opened={opened} onClose={onClose} triggerRef={buttonRef} />
         <button
+          ref={buttonRef}
           className="tooltip-trigger"
-          onClick={(event) => {
-            event.stopPropagation();
-            setOpened((v) => !v);
+          onClick={() => {
+            setOpened((value) => !value);
           }}
         >
           Click to open tooltip
