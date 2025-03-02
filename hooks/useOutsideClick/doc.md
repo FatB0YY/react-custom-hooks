@@ -55,3 +55,6 @@
 7. Ничего не происходит
 
 Решение с `mouse down` как раз решает данную проблему.
+
+Подробное объяснение: https://www.youtube.com/watch?v=ARtc9geJRUM
+https://www.youtube.com/watch?v=UbQJWpwensk
